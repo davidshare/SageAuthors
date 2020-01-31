@@ -1,0 +1,37 @@
+{
+  "name": "sageauthors",
+  "version": "1.0.0",
+  "description": "A simple application for authors to come and publish their articles",
+  "main": "index.js",
+  "repository": "https://github.com/davidshare/SageAuthors.git",
+  "author": "davidshare <davidessienshare@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/register": "^7.8.3",
+    "bcrypt": "^3.0.7",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^7.17.1",
+    "sequelize": "^5.21.3",
+    "sequelize-cli": "^5.5.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^25.1.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
+    "husky": "^4.2.1",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2"
+  }
+}
