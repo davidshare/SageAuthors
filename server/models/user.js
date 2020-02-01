@@ -64,6 +64,9 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       },
+      role: {
+        type: DataTypes.STRING
+      },
       imageUrl: {
         type: DataTypes.TEXT
       },

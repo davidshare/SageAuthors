@@ -1,3 +1,4 @@
+import authRoutes from './auth.routes';
 /**
  * @param {object} app
  * @returns {object} undefine
@@ -10,6 +11,8 @@ const routes = app => {
       message: 'Welcome to the SageAuthors'
     })
   );
+
+  authRoutes(app);
 };
 
 export default routes;
