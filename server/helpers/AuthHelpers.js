@@ -19,8 +19,8 @@ class AuthHelpers {
    * @description method to encypt password using bcrypt hash sync
    * @memberof AuthHelpers
    */
-  static encryptPassword(password){
-    if(!password || !password.trim()) throw new Error(REQUIRED_PASSWORD);
+  static encryptPassword(password) {
+    if (!password || !password.trim()) throw new Error(REQUIRED_PASSWORD);
     return bcrypt.hashSync(password, 10);
   }
 
@@ -32,9 +32,13 @@ class AuthHelpers {
    * @description method to encypt password using bcrypt hash sync
    * @memberof AuthHelpers
    */
-  static comparePasswords(password, hashedPassword){
-    if(!password || !hashedPassword
-      || !password.trim() || !hashedPassword.trim()) {
+  static comparePasswords(password, hashedPassword) {
+    if (
+      !password ||
+      !hashedPassword ||
+      !password.trim() ||
+      !hashedPassword.trim()
+    ) {
       throw new Error(REQUIRED_COMPARE_PASSWORDS);
     }
     return bcrypt.compareSync(password, hashedPassword);
@@ -47,13 +51,13 @@ class AuthHelpers {
    * @return {string} userToken
    * @memberof AuthHelpers
    */
-  static generateJWT(userObject, duration='7d'){
-    if(!userObject.email) throw new Error('Please supply a valid user object.');
-    const userToken = jwt.sign({ user: userObject }, SECRET,
-      {
-        expiresIn: duration,
-      });
-      return userToken;
+  static generateJWT(userObject, duration = '7d') {
+    if (!userObject.email)
+      {throw new Error('Please supply a valid user object.');}
+    const userToken = jwt.sign({ user: userObject }, SECRET, {
+      expiresIn: duration
+    });
+    return userToken;
   }
 
   /**
@@ -62,15 +66,14 @@ class AuthHelpers {
    * @returns {object} returns error object or decoded token object
    * @memberof AuthHelpers
    */
-  static verifyToken(token){
-    if(!token || typeof token !=='string'){
+  static verifyToken(token) {
+    if (!token || typeof token !== 'string') {
       throw new Error('Please supply a valid token.');
     }
-    try{
+    try {
       const decodedToken = jwt.verify(token, SECRET);
       return decodedToken;
-    }
-    catch(err) {
+    } catch (err) {
       return err;
     }
   }
@@ -82,14 +85,13 @@ class AuthHelpers {
    * @description function to strip date and password from user object
    * @memberof AuthHelpers
    */
-  static stripDateAndPassword(user){
-    if(!user.firstname){
+  static stripDateAndPassword(user) {
+    if (!user.email) {
       throw new Error('Please enter a valid user object.');
     }
-    const {created_at, upass, ...userObject } = user;
+    const { createdAt, password, updatedAt, ...userObject } = user;
     return userObject;
   }
-
 }
 
 export default AuthHelpers;
