@@ -3,6 +3,24 @@
   "version": "1.0.0",
   "description": "A simple application for authors to come and publish their articles",
   "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production yarn build && yarn run serve",
+    "start:dev": "NODE_ENV=dev nodemon --exec babel-node server/index.js",
+    "build": "babel src --out-dir ./dist --source-maps",
+    "dev:migrate": "NODE_ENV=dev babel-node src/database/migrations/index.js",
+    "db:migrate": "node_modules/.bin/sequelize db:migrate",
+    "db:migrate:seed": "npm run db:migrate && npm run db:seed:all",
+    "db:reset": "node_modules/.bin/sequelize db:migrate:undo:all",
+    "db:seed:all": "node_modules/.bin/sequelize  db:seed:all",
+    "db:seed-reset": "node_modules/.bin/sequelize  db:seed:undo:all",
+    "coveralls": "yarn run dev:migrate && jest --coverage --forceExit --coverageReporters=text-lcov | coveralls",
+    "test:migrate": "export NODE_ENV=test && yarn run db:reset && yarn run db:migrate:seed",
+    "test": "yarn run test:migrate && NODE_ENV=test jest --coverage",
+    "test-with-coverage": "yarn test --forceExit && cat ./coverage/lcov.info | codacy-coverage",
+    "serve": "NODE_ENV=production && node dist/server.js",
+    "lint": "eslint '**/*.{js,jsx}' --quiet",
+    "lint:fix": "eslint '**/*.{js,jsx}' --fix"
+  },
   "repository": "https://github.com/davidshare/SageAuthors.git",
   "author": "davidshare <davidessienshare@gmail.com>",
   "license": "MIT",
@@ -19,7 +37,8 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.17.1",
     "sequelize": "^5.21.3",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
