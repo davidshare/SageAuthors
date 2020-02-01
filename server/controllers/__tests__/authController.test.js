@@ -11,7 +11,9 @@ import {
   INVALID_EMAIL,
   INVALID_PASSWORD,
   USERNAME_EXISTS,
-  INVALID_USERNAME
+  INVALID_USERNAME,
+  SIGNIN_SUCCESS,
+  INVALID_SIGNIN,
 } from '../../helpers/constants';
 
 describe('Test the user signup', () => {
@@ -120,6 +122,61 @@ describe('Test the user signup', () => {
     expect(response.body.message).toBe(INVALID_PASSWORD);
     expect(response.status).toBe(400);
     expect(response.body.success).toBe(false);
+    done();
+  });
+});
+
+describe('Test the user signin', () => {
+  it('should login a user successfully', async(done) => {
+    const response = await request(app).post(`${API_PREFIX}auth/signin`)
+    .send(userSeeds.user1);
+    expect(response.body.message).toBe(SIGNIN_SUCCESS);
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    done();
+  });
+
+  it('should not signin a none registered user', async(done) => {
+    const response = await request(app).post(`${API_PREFIX}auth/signin`)
+    .send(userSeeds.user16);
+    expect(response.body.message).toBe(INVALID_SIGNIN);
+    expect(response.status).toBe(401);
+    expect(response.body.success).toBe(false);
+    done();
+  });
+
+  it('should signin a user without an email and no username', async(done) => {
+    const response = await request(app).post(`${API_PREFIX}auth/signin`)
+    .send(userSeeds.user14);
+    expect(response.body.message).toBe(SIGNIN_SUCCESS);
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    done();
+  });
+
+  it('should signin a user with a username and no email', async(done) => {
+    const response = await request(app).post(`${API_PREFIX}auth/signin`)
+    .send(userSeeds.user15);
+    expect(response.body.message).toBe(SIGNIN_SUCCESS);
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    done();
+  });
+
+  it('should not signin a user without an email or username', async(done) => {
+    const response = await request(app).post(`${API_PREFIX}auth/signin`)
+    .send(userSeeds.user4);
+    expect(response.body.message).toBe(REQUIRED_FIELDS);
+    expect(response.status).toBe(400);
+    expect(response.body.success).toBe(false);
+    done();
+  });
+
+  it('should not signin a user without an password', async(done) => {
+    const response = await request(app).post(`${API_PREFIX}auth/signin`)
+    .send(userSeeds.user5);
+    expect(response.body.message).toBe(REQUIRED_FIELDS);
+    expect(response.status).toBe(400);
     done();
   });
 });

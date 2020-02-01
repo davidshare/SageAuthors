@@ -1,5 +1,10 @@
 import AuthService from '../services/Auth.services';
-import { SIGNUP_SUCCESS, SIGNUP_ERROR } from '../helpers/constants';
+import {
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
+  SIGNIN_SUCCESS,
+  INVALID_SIGNIN
+} from '../helpers/constants';
 import AuthHelpers from '../helpers/AuthHelpers';
 
 /**
@@ -33,6 +38,42 @@ class AuthController {
         success: true,
         message: SIGNUP_SUCCESS,
         user
+      });
+    }catch(error){
+      return next(error);
+    }
+  }
+
+  /**
+   * @static
+   * @description - method for creating a new user
+   * @param {object} request
+   * @param {object} response
+   * @param {function} next
+   * @returns {object} - response object
+   * @memberof AuthController
+   */
+  static async userSignin(request, response, next){
+    try{
+      const userData = {password: request.body.password, login: {} };
+      if(request.body.email) {
+        userData.login.email = request.body.email;
+      }else{
+        userData.login.username = request.body.username;
+      }
+
+      const user = await AuthService.signin({...userData});
+      if(!user){
+        return response.status(401).send({
+          success: false,
+          message: INVALID_SIGNIN,
+          user
+        });
+      }
+      return response.status(200).send({
+        success: true,
+        message: SIGNIN_SUCCESS,
+        token: AuthHelpers.generateJWT(user)
       });
     }catch(error){
       return next(error);

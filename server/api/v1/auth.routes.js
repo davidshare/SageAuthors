@@ -17,6 +17,12 @@ const authRoutes = app => {
     ],
     AuthController.userSignup
   );
+
+  app.post(
+    '/api/v1/auth/signin',
+    UserValidator.requireSigninValues,
+    AuthController.userSignin
+  );
 };
 
 export default authRoutes;
