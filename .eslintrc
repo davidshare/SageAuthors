@@ -30,7 +30,7 @@
           "commonjs": true
         }
       ],
-      "max-len": ["error", 80, 2],
+      "max-len": ["error", 100, 2],
       "new-cap": "error",
       "no-param-reassign": "off",
       "no-shadow": [
