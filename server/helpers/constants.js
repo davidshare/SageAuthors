@@ -12,7 +12,6 @@ export const EMAIL_REGEX=/^([a-z_.!@#$%^&*0-9]{3,25})@([a-z]{3,20})\.([a-z]){2,7
 export const PASS_REGEX=/^(?=.*[0-9])([a-zA-Z0-9!@#$.%^&*~`?><,.';"|}{}+-=)()|]{8,20})$/;
 export const NAME_REGEX=/^([a-zA-Z]){3,20}$/;
 export const USERNAME_REGEX=/^([a-z0-9_]){5,16}$/;
-export const TITLE_REGEX=/^[a-zA-Z][a-zA-Z0-9\s?:]{10,255}$/;
 export const INVALID_FIRSTNAME='Invalid firstname: Please supply a valid first name.';
 export const INVALID_LASTNAME='Invalid lastname: Please supply a valid last name.';
 export const INVALID_EMAIL='Invalid email: Please supply a valid email.';
@@ -31,6 +30,13 @@ export const INVALID_TOKEN='Authentication failed: Please supply a valid token.'
 
 //API prefix
 export const API_PREFIX='/api/v1/';
+
+// Category
+export const CREATE_CATEGORY_ERROR = 'Sorry: could not create the category.';
+export const CREATE_CATEGORY_SUCCESS = 'The category was created successfully.';
+export const TITLE_REGEX=/^[a-zA-Z][a-zA-Z0-9\s?:]{4,255}$/;
+export const INVALID_CATEGORY = 'Sorry, the category name is invalid';
+export const CATEGORY_EXISTS = 'Sorry, the category already exists';
 
 
 

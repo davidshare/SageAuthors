@@ -1,4 +1,5 @@
 import authRoutes from './auth.routes';
+import categoryRoutes from './categories.routes';
 /**
  * @param {object} app
  * @returns {object} undefine
@@ -13,6 +14,7 @@ const routes = app => {
   );
 
   authRoutes(app);
+  categoryRoutes(app);
 };
 
 export default routes;
