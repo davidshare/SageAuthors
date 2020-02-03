@@ -15,16 +15,11 @@ class AuthService {
    * @returns { object } user or null
    * @memberof UserService
    */
-  static async signup(userData){
+  static async signup(userData) {
     try {
       const user = await User.create(userData);
-      if (user) {
-        return {
-          user
-        };
-      }
-      return null;
-    }catch(error){
+      return AuthHelpers.stripDateAndPassword(user.dataValues);
+    } catch (error) {
       throw new Error(error);
     }
   }
@@ -36,12 +31,11 @@ class AuthService {
    * @returns { object } user or null
    * @memberof UserService
    */
-  static async signin(userData){
+  static async signin(userData) {
     try {
       const user = await User.findOne({
         where: { ...userData.login }
       });
-
 
       if (
         user &&
@@ -50,7 +44,7 @@ class AuthService {
         return AuthHelpers.stripDateAndPassword(user.dataValues);
       }
       return null;
-    }catch(error){
+    } catch (error) {
       throw new Error(error);
     }
   }

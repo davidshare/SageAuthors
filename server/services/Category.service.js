@@ -20,13 +20,28 @@ class CategoryService{
   static async saveCategory(title){
     try{
       const category = await Category.create(title);
-      if(category){
         return {
-          category: category
+          ...category
         };
-      }
-      return null;
     }catch(error){
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * @description - method to check if a category exists
+   * @static
+   * @returns { boolean } true or false
+   * @param {String} category
+   * @memberof ValidationService
+   */
+  static async getCategory(category) {
+    try {
+      const categoryExists = await Category.findOne({
+        where: { ...category }
+      });
+      return categoryExists;
+    } catch (error) {
       throw new Error(error);
     }
   }

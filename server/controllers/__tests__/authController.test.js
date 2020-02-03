@@ -179,4 +179,17 @@ describe('Test the user signin', () => {
     expect(response.status).toBe(400);
     done();
   });
+
+  it('should return an error if there is any issue with the user authentication', async(done) => {
+    const article = {
+      data:'data',
+      categoryId: '6cd2a296-3974-40f1-9a5a-8bcbca21c80e'
+    };
+    const response = await request(app).post(`${API_PREFIX}articles`)
+    .send(article)
+    .set('Authorization', 'testing');
+    expect(response.body.errors.message).toBe('Please supply a valid token.');
+    expect(response.status).toBe(500);
+    done();
+  });
 });

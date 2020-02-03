@@ -30,13 +30,15 @@ const users = {
     firstname: 'David',
     lastname: 'Itam',
     email: 'david@gmail.com',
-    password: 'Krispygo,golang2020@'
+    password: 'Krispygo,golang2020@',
+    username: 'davoga',
   },
   user7: {
     firstname: 'Korfi',
     lastname: 'Itam',
     email: 'korfi@gmail.com',
-    password: 'Krispygo,golang2020@'
+    password: 'Krispygo,golang2020@',
+    username: 'gobodpi'
   },
   user8: {
     firstname: '0 Korfi',
@@ -56,7 +58,8 @@ const users = {
     firstname: 'Korfi',
     lastname: 'Itam',
     email: 'gmail.com',
-    password: 'Krispygo,golang2020@'
+    password: 'Krispygo,golang2020@',
+    username: 'kofla'
   },
   user11: {
     firstname: 'Korfi',

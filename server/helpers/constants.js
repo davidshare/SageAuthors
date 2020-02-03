@@ -12,6 +12,10 @@ export const EMAIL_REGEX=/^([a-z_.!@#$%^&*0-9]{3,25})@([a-z]{3,20})\.([a-z]){2,7
 export const PASS_REGEX=/^(?=.*[0-9])([a-zA-Z0-9!@#$.%^&*~`?><,.';"|}{}+-=)()|]{8,20})$/;
 export const NAME_REGEX=/^([a-zA-Z]){3,20}$/;
 export const USERNAME_REGEX=/^([a-z0-9_]){5,16}$/;
+export const UUID_REGEX = /^[A-F\d]{8}-[A-F\d]{4}-4[A-F\d]{3}-[89AB][A-F\d]{3}-[A-F\d]{12}$/i; // UUID Regex credit to @jakewtaylor
+
+
+// USER CONSTANTS
 export const INVALID_FIRSTNAME='Invalid firstname: Please supply a valid first name.';
 export const INVALID_LASTNAME='Invalid lastname: Please supply a valid last name.';
 export const INVALID_EMAIL='Invalid email: Please supply a valid email.';
@@ -35,8 +39,12 @@ export const API_PREFIX='/api/v1/';
 export const CREATE_CATEGORY_ERROR = 'Sorry: could not create the category.';
 export const CREATE_CATEGORY_SUCCESS = 'The category was created successfully.';
 export const TITLE_REGEX=/^[a-zA-Z][a-zA-Z0-9\s?:]{4,255}$/;
-export const INVALID_CATEGORY = 'Sorry, the category name is invalid';
+export const INVALID_CATEGORY = 'Sorry, the category is invalid';
+export const INVALID_CATEGORY_ID = 'Sorry, the categoryId is invalid';
 export const CATEGORY_EXISTS = 'Sorry, the category already exists';
 
-
-
+// Article
+export const CREATE_ARTICLE_ERROR = 'Sorry: could not create the category.';
+export const CREATE_ARTICLE_SUCCESS = 'The article was created successfully.';
+export const NOT_A_CATEGORY = 'Sorry, the category does not exist.';
+export const INVALID_ARTICLE = 'Please create a valid article. An article cannot be less than 10 characters.';

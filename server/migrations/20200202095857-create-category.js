@@ -6,12 +6,12 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        defaultValue: Sequelize.UUIDV4
       },
       title: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
       },
       createdAt: {
         allowNull: false,
@@ -23,7 +23,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: queryInterface => {
     return queryInterface.dropTable('Categories');
   }
 };

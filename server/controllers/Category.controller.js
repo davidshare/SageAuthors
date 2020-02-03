@@ -18,19 +18,19 @@ class CategoryController {
    */
   static async createCategory(request, response, next) {
     try {
-      const { title } = request.body;
-      const category = await CategoryService.saveCategory({ title });
-      if (!category || category.length<1) {
+      const { category } = request.body;
+      const categoryObject = await CategoryService.saveCategory({ title: category });
+      if (!categoryObject || category.length<1) {
         return response.status(500).send({
           success: false,
           message: CREATE_CATEGORY_ERROR,
-          category
+          category: categoryObject
         });
       }
       return response.status(200).send({
         success: true,
         message: CREATE_CATEGORY_SUCCESS,
-        category
+        category: categoryObject.dataValues
       });
     } catch (error) {
       return next(error);
