@@ -6,7 +6,7 @@ import CategoryService from '../services/Category.service';
  * @description - method to validate categories data
  * @class CategoryValidator
  */
-class CategoryValidator{
+class CategoryValidator {
   /**
    * @description - method to validate category
    * @static
@@ -16,9 +16,9 @@ class CategoryValidator{
    * @returns { object } next
    * @memberof CategoryValidator
    */
-  static validateCategory(request, response, next){
+  static validateCategory(request, response, next) {
     const category = request.body.category;
-    if(!category || !ValidationHelper.isValidTitle(category)){
+    if (!category || !ValidationHelper.isValidTitle(category)) {
       return response.status(400).json({
         success: false,
         message: INVALID_CATEGORY
@@ -38,7 +38,7 @@ class CategoryValidator{
    * @memberof CategoryValidator
    */
   static async isExistingCategory(request, response, next) {
-    const category = {title: request.body.category.trim()};
+    const category = { title: request.body.category.trim() };
     const isDuplicateCategory = await CategoryService.getCategory(category);
     if (isDuplicateCategory) {
       return response.status(400).json({

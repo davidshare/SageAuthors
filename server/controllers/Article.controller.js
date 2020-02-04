@@ -1,5 +1,8 @@
 import ArticleService from '../services/Article.service';
-import { CREATE_ARTICLE_SUCCESS, CREATE_ARTICLE_ERROR } from '../helpers/constants';
+import {
+  CREATE_ARTICLE_SUCCESS,
+  CREATE_ARTICLE_ERROR
+} from '../helpers/constants';
 import GeneralHelper from '../helpers/GeneralHelpers';
 
 /**
@@ -7,7 +10,6 @@ import GeneralHelper from '../helpers/GeneralHelpers';
  * @class ArticleController
  */
 class ArticleController {
-
   /**
    * @description - method to create a new article
    * @static
@@ -39,9 +41,9 @@ class ArticleController {
         published,
         featuredImage,
         readTime,
-        categoryId,
+        categoryId
       });
-      if (!article || article.length<1) {
+      if (!article || article.length < 1) {
         return response.status(500).send({
           success: false,
           message: CREATE_ARTICLE_ERROR,

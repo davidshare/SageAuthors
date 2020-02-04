@@ -14,7 +14,7 @@ class Authentication {
    * @returns {callback} returns a next callback
    * @memberof Authentication
    */
-  static authenticateUser(request, response, next){
+  static authenticateUser(request, response, next) {
     if (!request.headers.authorization) {
       return response.status(401).json({
         success: false,
@@ -25,8 +25,10 @@ class Authentication {
     try {
       const userToken = request.headers.authorization.split(' ')[1];
       const verifiedToken = AuthHelpers.verifyToken(userToken);
-      if (verifiedToken.name === 'JsonWebTokenError' ||
-        verifiedToken.name === 'TokenExpiredError'){
+      if (
+        verifiedToken.name === 'JsonWebTokenError' ||
+        verifiedToken.name === 'TokenExpiredError'
+      ) {
         return response.status(401).json({
           success: false,
           message: INVALID_TOKEN

@@ -7,8 +7,7 @@ const { Category } = models;
  * @description - class to manage operations with the database
  * @class CategoryService
  */
-class CategoryService{
-
+class CategoryService {
   /**
    *
    * @description - method to create a category
@@ -17,13 +16,13 @@ class CategoryService{
    * @returns {object} category object
    * @memberof CategoryService
    */
-  static async saveCategory(title){
-    try{
+  static async saveCategory(title) {
+    try {
       const category = await Category.create(title);
-        return {
-          ...category
-        };
-    }catch(error){
+      return {
+        ...category
+      };
+    } catch (error) {
       throw new Error(error);
     }
   }

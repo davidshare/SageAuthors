@@ -26,7 +26,6 @@ app.use((req, res, next) => {
   next(err);
 });
 
-
 /* eslint-disable-next-line */
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({
@@ -41,6 +40,6 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 /* eslint-disable-next-line */
-console.log('app running on port ', port);
+console.log("app running on port ", port);
 
 export default app;

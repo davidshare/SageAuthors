@@ -52,8 +52,9 @@ class AuthHelpers {
    * @memberof AuthHelpers
    */
   static generateJWT(userObject, duration = '7d') {
-    if (!userObject.email)
-      {throw new Error('Please supply a valid user object.');}
+    if (!userObject.email) {
+      throw new Error('Please supply a valid user object.');
+    }
     const userToken = jwt.sign({ user: userObject }, SECRET, {
       expiresIn: duration
     });

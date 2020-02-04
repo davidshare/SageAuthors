@@ -11,7 +11,7 @@ import ValidationHelper from '../helpers/ValidationHelper';
  * @description - method to validate categories data
  * @class CategoryValidator
  */
-class ArticleValidator{
+class ArticleValidator {
   /**
    * @static
    * @param { Object } request
@@ -22,7 +22,9 @@ class ArticleValidator{
    * @memberof ArticleValidator
    */
   static async isValidCategoryId(request, response, next) {
-    const validCategoryId = ValidationHelper.isValidUUID(request.body.categoryId);
+    const validCategoryId = ValidationHelper.isValidUUID(
+      request.body.categoryId
+    );
     if (!validCategoryId) {
       return response.status(400).json({
         success: false,
@@ -43,7 +45,7 @@ class ArticleValidator{
    * @memberof ArticleValidator
    */
   static async isExistingCategory(request, response, next) {
-    const category = {id: request.body.categoryId.trim()};
+    const category = { id: request.body.categoryId.trim() };
     const categoryExists = await CategoryService.getCategory(category);
     if (!categoryExists) {
       return response.status(400).json({
@@ -67,7 +69,7 @@ class ArticleValidator{
   static async isValidArticle(request, response, next) {
     const article = request.body.body;
 
-    if (!article || article.length < 10 ) {
+    if (!article || article.length < 10) {
       return response.status(400).json({
         success: false,
         message: INVALID_ARTICLE
@@ -88,7 +90,7 @@ class ArticleValidator{
    */
   static async isValidTitle(request, response, next) {
     const title = request.body.title;
-    if ( !title || !ValidationHelper.isValidTitle(title) ) {
+    if (!title || !ValidationHelper.isValidTitle(title)) {
       return response.status(400).json({
         success: false,
         message: INVALID_TITLE
