@@ -1,6 +1,6 @@
 import ValidationHelper from '../helpers/ValidationHelper';
 import { INVALID_CATEGORY, CATEGORY_EXISTS } from '../helpers/constants';
-import ValidationService from '../services/Validation.service';
+import CategoryService from '../services/Category.service';
 
 /**
  * @description - method to validate categories data
@@ -17,7 +17,7 @@ class CategoryValidator{
    * @memberof CategoryValidator
    */
   static validateCategory(request, response, next){
-    const category = request.body.title;
+    const category = request.body.category;
     if(!category || !ValidationHelper.isValidTitle(category)){
       return response.status(400).json({
         success: false,
@@ -38,8 +38,8 @@ class CategoryValidator{
    * @memberof CategoryValidator
    */
   static async isExistingCategory(request, response, next) {
-    const category = request.body.title.trim();
-    const isDuplicateCategory = await ValidationService.categoryExists(category);
+    const category = {title: request.body.category.trim()};
+    const isDuplicateCategory = await CategoryService.getCategory(category);
     if (isDuplicateCategory) {
       return response.status(400).json({
         success: false,

@@ -37,7 +37,7 @@ class AuthController {
       return res.status(200).send({
         success: true,
         message: SIGNUP_SUCCESS,
-        user
+        token: AuthHelpers.generateJWT(user)
       });
     }catch(error){
       return next(error);

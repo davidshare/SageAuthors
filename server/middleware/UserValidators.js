@@ -104,6 +104,7 @@ class UserValidator {
   static async isExistingEmail(request, response, next) {
     const email = request.body.email.trim();
     const isDuplicateEmail = await ValidationService.emailExists(email);
+
     if (isDuplicateEmail) {
       return response.status(400).json({
         success: false,
@@ -166,11 +167,12 @@ class UserValidator {
    * @memberof UserValidator
    */
   static requiredSignupValues(request, response, next) {
-    const { firstname, lastname, email, password } = request.body;
+    const { firstname, lastname, email, username, password } = request.body;
     if (
       ValidationHelper.isEmpty(firstname) ||
       ValidationHelper.isEmpty(lastname) ||
       ValidationHelper.isEmpty(email) ||
+      ValidationHelper.isEmpty(username) ||
       ValidationHelper.isEmpty(password)
     ) {
       return response.status(400).json({

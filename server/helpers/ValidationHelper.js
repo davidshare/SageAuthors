@@ -3,7 +3,8 @@ import {
   PASS_REGEX,
   NAME_REGEX,
   TITLE_REGEX,
-  USERNAME_REGEX
+  USERNAME_REGEX,
+  UUID_REGEX
 } from './constants';
 
 /**
@@ -68,12 +69,24 @@ class ValidationHelper {
 
   /**
    * @static
+   * @description - method to check if a value is empty
    * @param {String} value
    * @memberof ValidationHelper
    * @return {Boolean} returns true or false
    */
   static isEmpty(value) {
     return !value || !value.trim();
+  }
+
+  /**
+   * @static
+   * @description checks if a uuid is valid
+   * @param {uuid} uuid to be tested
+   * @memberof ValidationHelper
+   * @return {Boolean} returns true or false
+   */
+  static isValidUUID(uuid) {
+    return UUID_REGEX.test(uuid);
   }
 }
 

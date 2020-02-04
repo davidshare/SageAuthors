@@ -1,13 +1,13 @@
-language: node_js
+language: "node_js"
 node_js:
   - "node"
+services:
+  - postgresql
 cache:
   directories:
   - node_modules
-script:
-  - yarn run test-with-coverage
-  - yarn run coveralls
-services:
-  - postgresql
 before_script:
-  - psql -c 'create database sageauthor;' -U postgres
+  - psql -c 'create database sagetest;' -U postgres
+after_success:
+  - yarn run coveralls
+  - yarn run test-with-coverage

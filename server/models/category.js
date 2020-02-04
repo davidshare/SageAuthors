@@ -11,6 +11,15 @@ module.exports = (sequelize, DataTypes) => {
       unique: {
         msg: 'This category already exists.'
       },
+      validate: {
+        notEmpty: {
+          msg: 'Title cannot be empty',
+        },
+        len: {
+          args: [2, 200],
+          msg: 'Title must be between 5 and 200 characters'
+        }
+      }
     }
   });
   Category.associate = (models) => {
