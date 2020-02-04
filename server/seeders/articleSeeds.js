@@ -13,7 +13,7 @@ const articles = {
   article3: {
     title: 'The first article',
     featuredImage: 'featured Image'
-  },
+  }
 };
 
 export default articles;

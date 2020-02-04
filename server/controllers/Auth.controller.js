@@ -21,13 +21,13 @@ class AuthController {
    * @returns {object} - response object
    * @memberof AuthController
    */
-  static async userSignup(req, res, next){
-    try{
+  static async userSignup(req, res, next) {
+    try {
       const userObject = req.body;
-      if(!userObject.role) userObject.role = 'client';
+      if (!userObject.role) userObject.role = 'client';
       userObject.password = AuthHelpers.encryptPassword(userObject.password);
       const user = await AuthService.signup(userObject);
-      if(!user){
+      if (!user) {
         return res.status(500).send({
           success: false,
           message: SIGNUP_ERROR,
@@ -39,7 +39,7 @@ class AuthController {
         message: SIGNUP_SUCCESS,
         token: AuthHelpers.generateJWT(user)
       });
-    }catch(error){
+    } catch (error) {
       return next(error);
     }
   }
@@ -53,17 +53,17 @@ class AuthController {
    * @returns {object} - response object
    * @memberof AuthController
    */
-  static async userSignin(request, response, next){
-    try{
-      const userData = {password: request.body.password, login: {} };
-      if(request.body.email) {
+  static async userSignin(request, response, next) {
+    try {
+      const userData = { password: request.body.password, login: {} };
+      if (request.body.email) {
         userData.login.email = request.body.email;
-      }else{
+      } else {
         userData.login.username = request.body.username;
       }
 
-      const user = await AuthService.signin({...userData});
-      if(!user){
+      const user = await AuthService.signin({ ...userData });
+      if (!user) {
         return response.status(401).send({
           success: false,
           message: INVALID_SIGNIN,
@@ -75,7 +75,7 @@ class AuthController {
         message: SIGNIN_SUCCESS,
         token: AuthHelpers.generateJWT(user)
       });
-    }catch(error){
+    } catch (error) {
       return next(error);
     }
   }

@@ -24,14 +24,14 @@ const users = {
   user5: {
     firstname: 'Sunday',
     lastname: 'Itam',
-    email: 'sunday@gmail.com',
+    email: 'sunday@gmail.com'
   },
   user6: {
     firstname: 'David',
     lastname: 'Itam',
     email: 'david@gmail.com',
     password: 'Krispygo,golang2020@',
-    username: 'davoga',
+    username: 'davoga'
   },
   user7: {
     firstname: 'Korfi',
@@ -101,7 +101,7 @@ const users = {
     username: 'sunnyboy',
     password: 'Krispygo,golang2020@',
     email: 'sunnytex@gmail.com'
-  },
+  }
 };
 
 export default users;
