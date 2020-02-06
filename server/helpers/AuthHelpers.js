@@ -34,10 +34,10 @@ class AuthHelpers {
    */
   static comparePasswords(password, hashedPassword) {
     if (
-      !password ||
-      !hashedPassword ||
-      !password.trim() ||
-      !hashedPassword.trim()
+      !password
+      || !hashedPassword
+      || !password.trim()
+      || !hashedPassword.trim()
     ) {
       throw new Error(REQUIRED_COMPARE_PASSWORDS);
     }

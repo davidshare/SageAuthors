@@ -4,14 +4,12 @@ import Authentication from '../../middleware/Authentication';
 
 const categoryRoutes = (app) => {
   // User signup
-  app.post(
-    '/api/v1/categories',
+  app.post('/api/v1/categories',
     [
       Authentication.authenticateUser,
       CategoryValidator.validateCategory,
       CategoryValidator.isExistingCategory],
-    CategoryController.createCategory
-  );
+    CategoryController.createCategory);
 };
 
 export default categoryRoutes;

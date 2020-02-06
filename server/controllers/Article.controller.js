@@ -27,9 +27,11 @@ class ArticleController {
         published,
         featuredImage,
         category,
-        categoryId
+        categoryId,
+        tags
       } = request.body;
       const userId = request.user.id;
+
       const slug = GeneralHelper.generateUniqueSlug(title);
       const readTime = GeneralHelper.calculateArticleReadTime(body);
       const article = await ArticleService.saveArticle({
@@ -42,7 +44,8 @@ class ArticleController {
         featuredImage,
         readTime,
         categoryId
-      });
+      }, tags);
+
       if (!article || article.length < 1) {
         return response.status(500).send({
           success: false,
@@ -50,6 +53,7 @@ class ArticleController {
           article
         });
       }
+
       return response.status(200).send({
         success: true,
         message: CREATE_ARTICLE_SUCCESS,

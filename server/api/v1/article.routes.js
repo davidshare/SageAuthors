@@ -4,17 +4,17 @@ import Authentication from '../../middleware/Authentication';
 
 const articleRoutes = (app) => {
   // User signup
-  app.post(
-    '/api/v1/articles',
+  app.post('/api/v1/articles',
     [
+      ArticleValidator.requireArticleValues,
       Authentication.authenticateUser,
       ArticleValidator.isValidTitle,
       ArticleValidator.isValidCategoryId,
       ArticleValidator.isValidArticle,
-      ArticleValidator.isExistingCategory
+      ArticleValidator.isExistingCategory,
+      ArticleValidator.isExistingArticle,
     ],
-    ArticleController.createArticle
-  );
+    ArticleController.createArticle);
 };
 
 export default articleRoutes;

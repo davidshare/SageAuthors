@@ -38,8 +38,8 @@ class AuthService {
       });
 
       if (
-        user &&
-        AuthHelpers.comparePasswords(userData.password, user.password)
+        user
+        && AuthHelpers.comparePasswords(userData.password, user.password)
       ) {
         return AuthHelpers.stripDateAndPassword(user.dataValues);
       }

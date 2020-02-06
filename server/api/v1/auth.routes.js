@@ -1,10 +1,9 @@
 import AuthController from '../../controllers/Auth.controller';
 import UserValidator from '../../middleware/UserValidators';
 
-const authRoutes = app => {
+const authRoutes = (app) => {
   // User signup
-  app.post(
-    '/api/v1/auth/signup',
+  app.post('/api/v1/auth/signup',
     [
       UserValidator.requiredSignupValues,
       UserValidator.isValidEmail,
@@ -15,14 +14,11 @@ const authRoutes = app => {
       UserValidator.isValidLastname,
       UserValidator.isValidPass,
     ],
-    AuthController.userSignup
-  );
+    AuthController.userSignup);
 
-  app.post(
-    '/api/v1/auth/signin',
+  app.post('/api/v1/auth/signin',
     UserValidator.requireSigninValues,
-    AuthController.userSignin
-  );
+    AuthController.userSignin);
 };
 
 export default authRoutes;

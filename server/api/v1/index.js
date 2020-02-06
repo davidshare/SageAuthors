@@ -6,13 +6,11 @@ import articleRoutes from './article.routes';
  * @returns {object} undefine
  * @description function for handling routing
  */
-const routes = app => {
-  app.get('/', (request, response) =>
-    response.status(200).json({
-      success: true,
-      message: 'Welcome to the SageAuthors'
-    })
-  );
+const routes = (app) => {
+  app.get('/', (request, response) => response.status(200).json({
+    success: true,
+    message: 'Welcome to the SageAuthors'
+  }));
 
   authRoutes(app);
   categoryRoutes(app);
