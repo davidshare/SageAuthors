@@ -114,7 +114,7 @@ class ArticleValidator {
   static async isExistingArticle(request, response, next) {
     const { title } = request.body;
     const userId = request.user.id;
-    const foundArticle = await ArticleService.findUserArticle({
+    const foundArticle = await ArticleService.getArticle({
       title,
       userId
     });

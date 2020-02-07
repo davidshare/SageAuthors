@@ -43,7 +43,7 @@ class ArticleService {
    * @returns {object} article object
    * @memberof ArticleService
    */
-  static async findUserArticle(article) {
+  static async getArticle(article) {
     try {
       const foundArticle = await Article.findOne({
         where: { ...article }

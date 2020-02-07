@@ -15,6 +15,8 @@ const articleRoutes = (app) => {
       ArticleValidator.isExistingArticle,
     ],
     ArticleController.createArticle);
+
+  app.get('/api/v1/articles/s/:slug', ArticleController.getArticleBySlug);
 };
 
 export default articleRoutes;
