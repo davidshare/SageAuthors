@@ -63,3 +63,5 @@ export const REQUIRED_ARTICLE_FIELDS = 'Please the article title, body, userId, 
 export const ARTICLE_EXISTS = 'Sorry, you already have an article with this title.';
 export const ARTICLE_NOT_FOUND = 'The article was not found.';
 export const GET_ARTICLE_SUCCESS = 'Got the articles successfully';
+export const GET_ALL_ARTICLES_SUCCESS = 'Successfully got all articles.';
+export const NO_ARTICLES_FOUND = 'Sorry, no article was found.';

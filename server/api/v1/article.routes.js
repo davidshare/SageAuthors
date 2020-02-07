@@ -17,6 +17,8 @@ const articleRoutes = (app) => {
     ArticleController.createArticle);
 
   app.get('/api/v1/articles/s/:slug', ArticleController.getArticleBySlug);
+
+  app.get('/api/v1/articles', ArticleController.getAllArticles);
 };
 
 export default articleRoutes;
