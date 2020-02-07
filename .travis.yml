@@ -9,5 +9,4 @@ cache:
 before_script:
   - psql -c 'create database sagetest;' -U postgres
 after_success:
-  - yarn run coveralls
   - yarn run test-with-coverage

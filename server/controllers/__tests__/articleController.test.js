@@ -11,7 +11,9 @@ import {
   INVALID_TITLE,
   ARTICLE_EXISTS,
   GET_ARTICLE_SUCCESS,
-  ARTICLE_NOT_FOUND
+  ARTICLE_NOT_FOUND,
+  NO_ARTICLES_FOUND,
+  GET_ALL_ARTICLES_SUCCESS
 } from '../../helpers/constants';
 import { userSeeds, articleSeeds } from '../../seeders';
 import CategoryService from '../../services/Category.service';
@@ -29,6 +31,15 @@ describe('Test the create articles endpoint', () => {
     userToken = response.body.token;
     categoryId = (await CategoryService.saveCategory({ title: 'article test' }))
       .dataValues.id;
+    done();
+  });
+
+  it('should indicate when no article exists', async (done) => {
+    const response = await request(app)
+      .get(`${API_PREFIX}articles`);
+    expect(response.body.message).toBe(NO_ARTICLES_FOUND);
+    expect(response.status).toBe(404);
+    expect(response.body.success).toBe(false);
     done();
   });
 
@@ -178,6 +189,15 @@ describe('Test the create articles endpoint', () => {
 });
 
 describe('Test the get article endpoint', () => {
+  it('should get all articles', async (done) => {
+    const response = await request(app)
+      .get(`${API_PREFIX}articles`);
+    expect(response.body.message).toBe(GET_ALL_ARTICLES_SUCCESS);
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    done();
+  });
+
   it('should get an article using the slug', async (done) => {
     const response = await request(app)
       .get(`${API_PREFIX}articles/s/${slug}`);

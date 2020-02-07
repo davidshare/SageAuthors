@@ -36,7 +36,6 @@ class ArticleService {
   }
 
   /**
-   *
    * @description - method to find the owner of a specific article
    * @static
    * @param {object} article
@@ -49,6 +48,22 @@ class ArticleService {
         where: { ...article }
       });
       return foundArticle;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * @description - method to find the owner of a specific article
+   * @static
+   * @param {object} article
+   * @returns {object} article object
+   * @memberof ArticleService
+   */
+  static async getAllArticles() {
+    try {
+      const articles = await Article.findAll();
+      return articles;
     } catch (error) {
       throw new Error(error);
     }

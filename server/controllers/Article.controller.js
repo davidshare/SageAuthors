@@ -3,7 +3,9 @@ import {
   CREATE_ARTICLE_SUCCESS,
   CREATE_ARTICLE_ERROR,
   ARTICLE_NOT_FOUND,
-  GET_ARTICLE_SUCCESS
+  GET_ARTICLE_SUCCESS,
+  NO_ARTICLES_FOUND,
+  GET_ALL_ARTICLES_SUCCESS
 } from '../helpers/constants';
 import GeneralHelper from '../helpers/GeneralHelpers';
 
@@ -82,7 +84,7 @@ class ArticleController {
     const { slug } = request.params;
     try {
       const article = await ArticleService.getArticle({ slug });
-      if(!article){
+      if (!article) {
         return response.status(404).send({
           success: false,
           message: ARTICLE_NOT_FOUND,
@@ -94,7 +96,36 @@ class ArticleController {
         message: GET_ARTICLE_SUCCESS,
         article
       });
-    }catch(error){
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  /**
+   * @static
+   * @description - method to get all articles
+   * @param { Object } request
+   * @param { Object } response
+   * @param { function } next
+   * @returns { Object } response object
+   * @memberof ArticleController
+   */
+  static async getAllArticles(request, response, next) {
+    try {
+      const articles = await ArticleService.getAllArticles();
+      if (!articles || articles.length < 1) {
+        return response.status(404).send({
+          success: false,
+          message: NO_ARTICLES_FOUND,
+          articles
+        });
+      }
+      return response.status(200).send({
+        success: true,
+        message: GET_ALL_ARTICLES_SUCCESS,
+        articles
+      });
+    } catch (error) {
       return next(error);
     }
   }
