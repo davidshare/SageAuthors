@@ -101,7 +101,15 @@ const users = {
     username: 'sunnyboy',
     password: 'Krispygo,golang2020@',
     email: 'sunnytex@gmail.com'
-  }
+  },
+  user17: {
+    firstname: 'Grace',
+    lastname: 'Okoi',
+    email: 'graceokoi@gmail.com',
+    username: 'graceykoi',
+    password: 'Krispygo,golang2020@',
+    role: 'admin'
+  },
 };
 
 export default users;

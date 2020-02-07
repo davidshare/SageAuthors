@@ -17,7 +17,7 @@ import {
 } from '../../helpers/constants';
 
 describe('Test the user signup', () => {
-  it('should create a user successfully', async done => {
+  it('should create a user without a role successfully', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user1);
@@ -27,7 +27,17 @@ describe('Test the user signup', () => {
     done();
   });
 
-  it('should return an error if email exists', async done => {
+  it('should create a user with a role successfully', async (done) => {
+    const response = await request(app)
+      .post(`${API_PREFIX}auth/signup`)
+      .send(userSeeds.user17);
+    expect(response.body.message).toBe(SIGNUP_SUCCESS);
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    done();
+  });
+
+  it('should return an error if email exists', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user1);
@@ -37,7 +47,7 @@ describe('Test the user signup', () => {
     done();
   });
 
-  it('should return an error if username exists', async done => {
+  it('should return an error if username exists', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user12);
@@ -47,7 +57,7 @@ describe('Test the user signup', () => {
     done();
   });
 
-  it('should not create a user without a firstname', async done => {
+  it('should not create a user without a firstname', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user2);
@@ -57,7 +67,7 @@ describe('Test the user signup', () => {
     done();
   });
 
-  it('should not create a user with an invalid firstname', async done => {
+  it('should not create a user with an invalid firstname', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user8);
@@ -67,7 +77,7 @@ describe('Test the user signup', () => {
     done();
   });
 
-  it('should not create a user without a lastname', async done => {
+  it('should not create a user without a lastname', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user3);
@@ -77,7 +87,7 @@ describe('Test the user signup', () => {
     done();
   });
 
-  it('should not create a user with invalid lastname', async done => {
+  it('should not create a user with invalid lastname', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user9);
@@ -87,7 +97,7 @@ describe('Test the user signup', () => {
     done();
   });
 
-  it('should not create a user without an email', async done => {
+  it('should not create a user without an email', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user4);
@@ -97,7 +107,7 @@ describe('Test the user signup', () => {
     done();
   });
 
-  it('should not create a user with invalid email', async done => {
+  it('should not create a user with invalid email', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user10);
@@ -107,7 +117,7 @@ describe('Test the user signup', () => {
     done();
   });
 
-  it('should not create a user with invalid username', async done => {
+  it('should not create a user with invalid username', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user13);
@@ -117,7 +127,7 @@ describe('Test the user signup', () => {
     done();
   });
 
-  it('should not create a user without an password', async done => {
+  it('should not create a user without an password', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user5);
@@ -127,7 +137,7 @@ describe('Test the user signup', () => {
     done();
   });
 
-  it('should not create a user with an invalid password', async done => {
+  it('should not create a user with an invalid password', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
       .send(userSeeds.user11);
@@ -139,7 +149,7 @@ describe('Test the user signup', () => {
 });
 
 describe('Test the user signin', () => {
-  it('should login a user successfully', async done => {
+  it('should login a user successfully', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signin`)
       .send(userSeeds.user1);
@@ -149,7 +159,7 @@ describe('Test the user signin', () => {
     done();
   });
 
-  it('should not signin a none registered user', async done => {
+  it('should not signin a none registered user', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signin`)
       .send(userSeeds.user16);
@@ -159,7 +169,7 @@ describe('Test the user signin', () => {
     done();
   });
 
-  it('should signin a user without an email and no username', async done => {
+  it('should signin a user without an email and no username', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signin`)
       .send(userSeeds.user14);
@@ -169,7 +179,7 @@ describe('Test the user signin', () => {
     done();
   });
 
-  it('should signin a user with a username and no email', async done => {
+  it('should signin a user with a username and no email', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signin`)
       .send(userSeeds.user15);
@@ -179,7 +189,7 @@ describe('Test the user signin', () => {
     done();
   });
 
-  it('should not signin a user without an email or username', async done => {
+  it('should not signin a user without an email or username', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signin`)
       .send(userSeeds.user4);
@@ -189,7 +199,7 @@ describe('Test the user signin', () => {
     done();
   });
 
-  it('should not signin a user without an password', async done => {
+  it('should not signin a user without an password', async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signin`)
       .send(userSeeds.user5);
@@ -198,10 +208,12 @@ describe('Test the user signin', () => {
     done();
   });
 
-  it('should return an error if there is any issue with the user authentication', async done => {
+  it('should return an error if there is any issue with the user authentication', async (done) => {
     const article = {
-      data: 'data',
-      categoryId: '6cd2a296-3974-40f1-9a5a-8bcbca21c80e'
+      title: 'data',
+      categoryId: '6cd2a296-3974-40f1-9a5a-8bcbca21c80e',
+      body: '*##EDSAFDWEFWER',
+      userId: '223333'
     };
     const response = await request(app)
       .post(`${API_PREFIX}articles`)

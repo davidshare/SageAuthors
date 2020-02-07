@@ -145,9 +145,7 @@ class UserValidator {
    */
   static async isExistingUsername(request, response, next) {
     const username = request.body.username.trim();
-    const isDuplicateUsername = await ValidationService.usernameExists(
-      username
-    );
+    const isDuplicateUsername = await ValidationService.usernameExists(username);
     if (isDuplicateUsername) {
       return response.status(400).json({
         success: false,
@@ -169,11 +167,11 @@ class UserValidator {
   static requiredSignupValues(request, response, next) {
     const { firstname, lastname, email, username, password } = request.body;
     if (
-      ValidationHelper.isEmpty(firstname) ||
-      ValidationHelper.isEmpty(lastname) ||
-      ValidationHelper.isEmpty(email) ||
-      ValidationHelper.isEmpty(username) ||
-      ValidationHelper.isEmpty(password)
+      ValidationHelper.isEmpty(firstname)
+      || ValidationHelper.isEmpty(lastname)
+      || ValidationHelper.isEmpty(email)
+      || ValidationHelper.isEmpty(username)
+      || ValidationHelper.isEmpty(password)
     ) {
       return response.status(400).json({
         success: false,
@@ -195,8 +193,8 @@ class UserValidator {
   static requireSigninValues(request, response, next) {
     const { email, username, password } = request.body;
     if (
-      (ValidationHelper.isEmpty(email) && ValidationHelper.isEmpty(username)) ||
-      ValidationHelper.isEmpty(password)
+      (ValidationHelper.isEmpty(email) && ValidationHelper.isEmpty(username))
+      || ValidationHelper.isEmpty(password)
     ) {
       return response.status(400).json({
         success: false,

@@ -26,8 +26,8 @@ class Authentication {
       const userToken = request.headers.authorization.split(' ')[1];
       const verifiedToken = AuthHelpers.verifyToken(userToken);
       if (
-        verifiedToken.name === 'JsonWebTokenError' ||
-        verifiedToken.name === 'TokenExpiredError'
+        verifiedToken.name === 'JsonWebTokenError'
+        || verifiedToken.name === 'TokenExpiredError'
       ) {
         return response.status(401).json({
           success: false,
