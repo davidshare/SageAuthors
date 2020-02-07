@@ -61,3 +61,5 @@ export const INVALID_ARTICLE
   = 'Please create a valid article. An article cannot be less than 10 characters.';
 export const REQUIRED_ARTICLE_FIELDS = 'Please the article title, body, userId, and categoryId are required.';
 export const ARTICLE_EXISTS = 'Sorry, you already have an article with this title.';
+export const ARTICLE_NOT_FOUND = 'The article was not found.';
+export const GET_ARTICLE_SUCCESS = 'Got the articles successfully';

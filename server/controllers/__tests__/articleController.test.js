@@ -9,15 +9,19 @@ import {
   INVALID_CATEGORY_ID,
   INVALID_ARTICLE,
   INVALID_TITLE,
-  ARTICLE_EXISTS
+  ARTICLE_EXISTS,
+  GET_ARTICLE_SUCCESS,
+  ARTICLE_NOT_FOUND
 } from '../../helpers/constants';
 import { userSeeds, articleSeeds } from '../../seeders';
 import CategoryService from '../../services/Category.service';
 import ArticleController from '../Article.controller';
 
+let userToken;
+let categoryId;
+let slug;
+
 describe('Test the create articles endpoint', () => {
-  let userToken;
-  let categoryId;
   beforeAll(async (done) => {
     const response = await request(app)
       .post(`${API_PREFIX}auth/signup`)
@@ -34,6 +38,7 @@ describe('Test the create articles endpoint', () => {
       .post(`${API_PREFIX}articles`)
       .send(article)
       .set('Authorization', `Bearer ${userToken}`);
+    slug = response.body.article.article.slug;
     expect(response.body.message).toBe(CREATE_ARTICLE_SUCCESS);
     expect(response.status).toBe(200);
     expect(response.body.success).toBe(true);
@@ -168,6 +173,26 @@ describe('Test the create articles endpoint', () => {
   it('should return an error if for an something unaccounted for goes wrong', async (done) => {
     const article = async () => ArticleController.createArticle({}, {}, () => {});
     expect(await article()).toBe(undefined);
+    done();
+  });
+});
+
+describe('Test the get article endpoint', () => {
+  it('should get an article using the slug', async (done) => {
+    const response = await request(app)
+      .get(`${API_PREFIX}articles/s/${slug}`);
+    expect(response.body.message).toBe(GET_ARTICLE_SUCCESS);
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    done();
+  });
+
+  it('should not get an article by slug if the slug does not exist', async (done) => {
+    const response = await request(app)
+      .get(`${API_PREFIX}articles/s/adsfdasfa-geaeefef-asererws`);
+    expect(response.body.message).toBe(ARTICLE_NOT_FOUND);
+    expect(response.status).toBe(404);
+    expect(response.body.success).toBe(false);
     done();
   });
 });

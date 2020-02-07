@@ -6,8 +6,8 @@ describe('Test Artice service', () => {
     done();
   });
 
-  it('findUserArticle: should throw an error for invalid article objects', async (done) => {
-    await expect(ArticleService.findUserArticle('000')).rejects.toThrow();
+  it('getArticle: should throw an error for invalid article objects', async (done) => {
+    await expect(ArticleService.getArticle('000')).rejects.toThrow();
     done();
   });
 });
