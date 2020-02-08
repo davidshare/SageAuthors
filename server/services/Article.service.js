@@ -27,9 +27,7 @@ class ArticleService {
         await article.setTags(articleTags);
         article.dataValues.tags = tags;
       }
-      return {
-        article
-      };
+      return article;
     } catch (error) {
       throw new Error(error);
     }
@@ -56,13 +54,13 @@ class ArticleService {
   /**
    * @description - method to find the owner of a specific article
    * @static
-   * @param {object} article
+   * @param {object} options
    * @returns {object} article object
    * @memberof ArticleService
    */
-  static async getAllArticles() {
+  static async getAllArticles(options={}) {
     try {
-      const articles = await Article.findAll();
+      const articles = await Article.findAll({ where: { ...options } });
       return articles;
     } catch (error) {
       throw new Error(error);

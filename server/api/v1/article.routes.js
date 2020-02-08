@@ -19,6 +19,12 @@ const articleRoutes = (app) => {
   app.get('/api/v1/articles/s/:slug', ArticleController.getArticleBySlug);
 
   app.get('/api/v1/articles', ArticleController.getAllArticles);
+
+  app.get(
+    '/api/v1/articles/user',
+    Authentication.authenticateUser,
+    ArticleController.getUserArticles
+  );
 };
 
 export default articleRoutes;

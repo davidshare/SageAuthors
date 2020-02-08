@@ -13,13 +13,16 @@ import {
   GET_ARTICLE_SUCCESS,
   ARTICLE_NOT_FOUND,
   NO_ARTICLES_FOUND,
-  GET_ALL_ARTICLES_SUCCESS
+  GET_ALL_ARTICLES_SUCCESS,
+  GET_USER_ARTICLES_SUCCESS,
+  NO_USER_ARTICLES
 } from '../../helpers/constants';
 import { userSeeds, articleSeeds } from '../../seeders';
 import CategoryService from '../../services/Category.service';
 import ArticleController from '../Article.controller';
 
 let userToken;
+let userToken2;
 let categoryId;
 let slug;
 
@@ -31,12 +34,16 @@ describe('Test the create articles endpoint', () => {
     userToken = response.body.token;
     categoryId = (await CategoryService.saveCategory({ title: 'article test' }))
       .dataValues.id;
+
+    const response2 = await request(app)
+      .post(`${API_PREFIX}auth/signup`)
+      .send(userSeeds.user18);
+    userToken2 = response2.body.token;
     done();
   });
 
   it('should indicate when no article exists', async (done) => {
-    const response = await request(app)
-      .get(`${API_PREFIX}articles`);
+    const response = await request(app).get(`${API_PREFIX}articles`);
     expect(response.body.message).toBe(NO_ARTICLES_FOUND);
     expect(response.status).toBe(404);
     expect(response.body.success).toBe(false);
@@ -49,7 +56,7 @@ describe('Test the create articles endpoint', () => {
       .post(`${API_PREFIX}articles`)
       .send(article)
       .set('Authorization', `Bearer ${userToken}`);
-    slug = response.body.article.article.slug;
+    slug = response.body.article.slug;
     expect(response.body.message).toBe(CREATE_ARTICLE_SUCCESS);
     expect(response.status).toBe(200);
     expect(response.body.success).toBe(true);
@@ -190,17 +197,43 @@ describe('Test the create articles endpoint', () => {
 
 describe('Test the get article endpoint', () => {
   it('should get all articles', async (done) => {
-    const response = await request(app)
-      .get(`${API_PREFIX}articles`);
+    const response = await request(app).get(`${API_PREFIX}articles`);
     expect(response.body.message).toBe(GET_ALL_ARTICLES_SUCCESS);
     expect(response.status).toBe(200);
     expect(response.body.success).toBe(true);
     done();
   });
 
-  it('should get an article using the slug', async (done) => {
+  it('should get all articles for a logged in user', async (done) => {
     const response = await request(app)
-      .get(`${API_PREFIX}articles/s/${slug}`);
+      .get(`${API_PREFIX}articles/user`)
+      .set('Authorization', `Bearer ${userToken}`);
+    expect(response.body.message).toBe(GET_USER_ARTICLES_SUCCESS);
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    done();
+  });
+
+  it('should not get a users articles if no token is provided', async (done) => {
+    const response = await request(app).get(`${API_PREFIX}articles/user`);
+    expect(response.body.message).toBe(INVALID_TOKEN);
+    expect(response.status).toBe(401);
+    expect(response.body.success).toBe(false);
+    done();
+  });
+
+  it('should return not found if the user has no articles', async (done) => {
+    const response = await request(app)
+      .get(`${API_PREFIX}articles/user`)
+      .set('Authorization', `Bearer ${userToken2}`);
+    expect(response.body.message).toBe(NO_USER_ARTICLES);
+    expect(response.status).toBe(404);
+    expect(response.body.success).toBe(false);
+    done();
+  });
+
+  it('should get an article using the slug', async (done) => {
+    const response = await request(app).get(`${API_PREFIX}articles/s/${slug}`);
     expect(response.body.message).toBe(GET_ARTICLE_SUCCESS);
     expect(response.status).toBe(200);
     expect(response.body.success).toBe(true);
@@ -208,8 +241,9 @@ describe('Test the get article endpoint', () => {
   });
 
   it('should not get an article by slug if the slug does not exist', async (done) => {
-    const response = await request(app)
-      .get(`${API_PREFIX}articles/s/adsfdasfa-geaeefef-asererws`);
+    const response = await request(app).get(
+      `${API_PREFIX}articles/s/adsfdasfa-geaeefef-asererws`
+    );
     expect(response.body.message).toBe(ARTICLE_NOT_FOUND);
     expect(response.status).toBe(404);
     expect(response.body.success).toBe(false);

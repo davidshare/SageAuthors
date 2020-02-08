@@ -110,6 +110,14 @@ const users = {
     password: 'Krispygo,golang2020@',
     role: 'admin'
   },
+
+  user18: {
+    firstname: 'Ebam',
+    lastname: 'Itam',
+    email: 'emmanuel@gmail.com',
+    username: 'emmanuel',
+    password: 'Krispygo,golang2020@'
+  },
 };
 
 export default users;

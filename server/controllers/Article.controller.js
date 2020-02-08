@@ -5,7 +5,9 @@ import {
   ARTICLE_NOT_FOUND,
   GET_ARTICLE_SUCCESS,
   NO_ARTICLES_FOUND,
-  GET_ALL_ARTICLES_SUCCESS
+  GET_ALL_ARTICLES_SUCCESS,
+  GET_USER_ARTICLES_SUCCESS,
+  NO_USER_ARTICLES,
 } from '../helpers/constants';
 import GeneralHelper from '../helpers/GeneralHelpers';
 
@@ -95,6 +97,36 @@ class ArticleController {
         success: true,
         message: GET_ARTICLE_SUCCESS,
         article
+      });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  /**
+   * @static
+   * @description - method to get an article from a specific user
+   * @param { Object } request
+   * @param { Object } response
+   * @param { function } next
+   * @returns { Object } response object
+   * @memberof ArticleController
+   */
+  static async getUserArticles(request, response, next) {
+    const userId = request.user.id;
+    try {
+      const articles = await ArticleService.getAllArticles({ userId });
+      if (!articles || articles.length < 1) {
+        return response.status(404).send({
+          success: false,
+          message: NO_USER_ARTICLES,
+          articles
+        });
+      }
+      return response.status(200).send({
+        success: true,
+        message: GET_USER_ARTICLES_SUCCESS,
+        articles
       });
     } catch (error) {
       return next(error);
