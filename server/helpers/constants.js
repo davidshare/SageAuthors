@@ -65,3 +65,5 @@ export const ARTICLE_NOT_FOUND = 'The article was not found.';
 export const GET_ARTICLE_SUCCESS = 'Got the articles successfully';
 export const GET_ALL_ARTICLES_SUCCESS = 'Successfully got all articles.';
 export const NO_ARTICLES_FOUND = 'Sorry, no article was found.';
+export const GET_USER_ARTICLES_SUCCESS = 'Successfully got all the user\'s articles';
+export const NO_USER_ARTICLES = 'Sorry, this user has no articles.';
