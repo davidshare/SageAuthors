@@ -4,7 +4,8 @@ import {
   INVALID_ARTICLE,
   INVALID_TITLE,
   REQUIRED_ARTICLE_FIELDS,
-  ARTICLE_EXISTS
+  ARTICLE_EXISTS,
+  INVALID_ARTICLE_ID
 } from '../helpers/constants';
 import CategoryService from '../services/Category.service';
 import ValidationHelper from '../helpers/ValidationHelper';
@@ -25,7 +26,9 @@ class ArticleValidator {
    * @memberof ArticleValidator
    */
   static async isValidCategoryId(request, response, next) {
-    const validCategoryId = ValidationHelper.isValidUUID(request.body.categoryId);
+    const validCategoryId = ValidationHelper.isValidUUID(
+      request.body.categoryId
+    );
     if (!validCategoryId) {
       return response.status(400).json({
         success: false,
@@ -147,6 +150,48 @@ class ArticleValidator {
         message: REQUIRED_ARTICLE_FIELDS
       });
     }
+    return next();
+  }
+
+  /**
+   * @param { Object } request
+   * @param { Object } response
+   * @param { Callback } next
+   * @returns { Object | Callback } returns an Object or call back
+   * @description method to check if all required article fields have been filled
+   * @memberof UserValidator
+   */
+  static async validateUpdateArticles(request, response, next) {
+    const { title, body, categoryId } = request.body;
+    const { articleId } = request.params;
+    if (title && !ValidationHelper.isValidTitle(title)) {
+      return response.status(400).json({
+        success: false,
+        message: INVALID_TITLE
+      });
+    }
+
+    if (body && body.length < 10) {
+      return response.status(400).json({
+        success: false,
+        message: INVALID_ARTICLE
+      });
+    }
+
+    if (categoryId && !ValidationHelper.isValidUUID(categoryId)) {
+      return response.status(400).json({
+        success: false,
+        message: INVALID_CATEGORY_ID
+      });
+    }
+
+    if (articleId && !ValidationHelper.isValidUUID(articleId)) {
+      return response.status(400).json({
+        success: false,
+        message: INVALID_ARTICLE_ID
+      });
+    }
+
     return next();
   }
 }
