@@ -15,7 +15,9 @@ import {
   NO_ARTICLES_FOUND,
   GET_ALL_ARTICLES_SUCCESS,
   GET_USER_ARTICLES_SUCCESS,
-  NO_USER_ARTICLES
+  NO_USER_ARTICLES,
+  UPDATE_ARTICLE_SUCCESS,
+  INVALID_ARTICLE_ID
 } from '../../helpers/constants';
 import { userSeeds, articleSeeds } from '../../seeders';
 import CategoryService from '../../services/Category.service';
@@ -25,6 +27,7 @@ let userToken;
 let userToken2;
 let categoryId;
 let slug;
+let articleObject;
 
 describe('Test the create articles endpoint', () => {
   beforeAll(async (done) => {
@@ -57,6 +60,7 @@ describe('Test the create articles endpoint', () => {
       .send(article)
       .set('Authorization', `Bearer ${userToken}`);
     slug = response.body.article.slug;
+    articleObject = response.body.article;
     expect(response.body.message).toBe(CREATE_ARTICLE_SUCCESS);
     expect(response.status).toBe(200);
     expect(response.body.success).toBe(true);
@@ -247,6 +251,88 @@ describe('Test the get article endpoint', () => {
     expect(response.body.message).toBe(ARTICLE_NOT_FOUND);
     expect(response.status).toBe(404);
     expect(response.body.success).toBe(false);
+    done();
+  });
+});
+
+describe('Test the update article endpoint', () => {
+  it('should update an article', async (done) => {
+    const article = { ...articleSeeds.article1, categoryId };
+    const articleId = articleObject.id;
+    const response = await request(app)
+      .put(`${API_PREFIX}articles/${articleId}`)
+      .send(article)
+      .set('Authorization', `Bearer ${userToken}`);
+    expect(response.body.message).toBe(UPDATE_ARTICLE_SUCCESS);
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    done();
+  });
+
+  it('should not update an article with an invalid articleId', async (done) => {
+    const article = { ...articleSeeds.article1, categoryId };
+    const response = await request(app)
+      .put(`${API_PREFIX}articles/99dkiere`)
+      .send(article)
+      .set('Authorization', `Bearer ${userToken}`);
+    expect(response.body.message).toBe(INVALID_ARTICLE_ID);
+    expect(response.status).toBe(400);
+    expect(response.body.success).toBe(false);
+    done();
+  });
+
+  it('should not update an article with invalid title', async (done) => {
+    const article = { ...articleSeeds.article1, categoryId };
+    const articleId = articleObject.id;
+    article.title = 'i';
+    const response = await request(app)
+      .put(`${API_PREFIX}articles/${articleId}`)
+      .send(article)
+      .set('Authorization', `Bearer ${userToken}`);
+    expect(response.body.message).toBe(INVALID_TITLE);
+    expect(response.status).toBe(400);
+    expect(response.body.success).toBe(false);
+    done();
+  });
+
+  it('should not update an article with invalid title', async (done) => {
+    const article = { ...articleSeeds.article1, categoryId };
+    const articleId = articleObject.id;
+    article.body = 'i';
+    const response = await request(app)
+      .put(`${API_PREFIX}articles/${articleId}`)
+      .send(article)
+      .set('Authorization', `Bearer ${userToken}`);
+    expect(response.body.message).toBe(INVALID_ARTICLE);
+    expect(response.status).toBe(400);
+    expect(response.body.success).toBe(false);
+    done();
+  });
+
+  it('should not update an article with invalid title', async (done) => {
+    const article = { ...articleSeeds.article1, categoryId };
+    const articleId = articleObject.id;
+    article.categoryId = 'i';
+    const response = await request(app)
+      .put(`${API_PREFIX}articles/${articleId}`)
+      .send(article)
+      .set('Authorization', `Bearer ${userToken}`);
+    expect(response.body.message).toBe(INVALID_CATEGORY_ID);
+    expect(response.status).toBe(400);
+    expect(response.body.success).toBe(false);
+    done();
+  });
+
+  it('should use existing content to update is nothing is passed', async (done) => {
+    const article = { title:'', body: '' };
+    const articleId = articleObject.id;
+    const response = await request(app)
+      .put(`${API_PREFIX}articles/${articleId}`)
+      .send(article)
+      .set('Authorization', `Bearer ${userToken}`);
+    expect(response.body.message).toBe(UPDATE_ARTICLE_SUCCESS);
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
     done();
   });
 });

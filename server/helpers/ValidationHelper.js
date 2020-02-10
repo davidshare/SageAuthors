@@ -58,7 +58,7 @@ class ValidationHelper {
 
   /**
    * @static
-   * @description validates the syntax of the todo title
+   * @description validates the syntax of the title
    * @param {String} title to be tested
    * @return {Boolean} returns true or false
    * @memberof ValidationHelper

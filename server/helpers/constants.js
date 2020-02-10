@@ -31,7 +31,7 @@ export const USERNAME_EXISTS = 'Sorry, this username has already been used.';
 export const REQUIRED_FIELDS = 'All fields are required.';
 export const REQUIRED_TITLE = 'The title is required.';
 export const INVALID_TITLE
-  = 'Invalid Todo title: please supply a valid todo title.';
+  = 'Invalid title: please supply a valid title.';
 export const NOT_A_USER = 'Sorry, the user does not exist.';
 export const INVALID_USER_ID = 'Sorry, the userId is invalid';
 
@@ -52,11 +52,13 @@ export const TITLE_REGEX = /^[a-zA-Z][a-zA-Z0-9\s?:]{4,255}$/;
 export const INVALID_CATEGORY = 'Sorry, the category is invalid';
 export const INVALID_CATEGORY_ID = 'Sorry, the categoryId is invalid';
 export const CATEGORY_EXISTS = 'Sorry, the category already exists';
+export const NOT_A_CATEGORY = 'Sorry, the category does not exist.';
 
 // Article
-export const CREATE_ARTICLE_ERROR = 'Sorry: could not create the category.';
+export const CREATE_ARTICLE_ERROR = 'Sorry: could not create the article.';
+export const UPDATE_ARTICLE_ERROR = 'Sorry: could not update the article.';
 export const CREATE_ARTICLE_SUCCESS = 'The article was created successfully.';
-export const NOT_A_CATEGORY = 'Sorry, the category does not exist.';
+export const UPDATE_ARTICLE_SUCCESS = 'The article was updated successfully.';
 export const INVALID_ARTICLE
   = 'Please create a valid article. An article cannot be less than 10 characters.';
 export const REQUIRED_ARTICLE_FIELDS = 'Please the article title, body, userId, and categoryId are required.';
@@ -67,3 +69,4 @@ export const GET_ALL_ARTICLES_SUCCESS = 'Successfully got all articles.';
 export const NO_ARTICLES_FOUND = 'Sorry, no article was found.';
 export const GET_USER_ARTICLES_SUCCESS = 'Successfully got all the user\'s articles';
 export const NO_USER_ARTICLES = 'Sorry, this user has no articles.';
+export const INVALID_ARTICLE_ID = 'Sorry, the articleId is invalid';

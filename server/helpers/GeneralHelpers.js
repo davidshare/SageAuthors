@@ -23,6 +23,7 @@ class GeneralHelper {
    * @returns {integer} Time taken to read article
    */
   static calculateArticleReadTime(article) {
+    if(!article || article.trim().length<1) return null;
     const wordsPerMinute = 275;
     const words = article.split(' ').length;
     const readTime = (words / wordsPerMinute).toFixed(0);

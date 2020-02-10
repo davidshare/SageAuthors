@@ -16,6 +16,13 @@ const articleRoutes = (app) => {
     ],
     ArticleController.createArticle);
 
+  app.put('/api/v1/articles/:articleId',
+    [
+      Authentication.authenticateUser,
+      ArticleValidator.validateUpdateArticles
+    ],
+    ArticleController.updateArticle);
+
   app.get('/api/v1/articles/s/:slug', ArticleController.getArticleBySlug);
 
   app.get('/api/v1/articles', ArticleController.getAllArticles);
